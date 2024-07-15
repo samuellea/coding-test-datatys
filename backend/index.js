@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const morganMiddleware = require('./middelware/logger');
+const morganMiddleware = require('./middlewares/logger');
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 
 const port = 3002;
@@ -25,6 +25,6 @@ app.use(morganMiddleware);
 app.get('/health', (req, res) => res.send({ message: 'ok' }));
 
 const server = app.listen(port, () => {
-  console.log(`THM App running on port ${port}.`);
+  console.log(`Datatys App running on port ${port}.`);
 });
 module.exports = server;
