@@ -9,11 +9,16 @@ function ProfileForm({ onSubmit }) {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+
+  const handleFormSubmit = (data) => {
+    onSubmit(data, reset);
+  };
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(handleFormSubmit)}
       className={styles['form-container']}
     >
       <div>
