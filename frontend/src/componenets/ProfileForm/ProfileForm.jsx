@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import styles from './ProfileForm.module.css'; // Import the CSS module
+import styles from './ProfileForm.module.css';
 
 function ProfileForm({ onSubmit }) {
   const {
@@ -98,7 +98,14 @@ function ProfileForm({ onSubmit }) {
           id="phoneNumber"
           name="phoneNumber"
           className={errors.phoneNumber ? styles.error : ''}
-          {...register('phoneNumber', { required: 'Phone number is required' })}
+          {...register('phoneNumber', {
+            required: 'Phone number is required',
+            pattern: {
+              value: /^\+?[1-9]\d{1,14}$/,
+              message:
+                'Invalid format (use international format, e.g., +123456789)',
+            },
+          })}
         />
         {errors.phoneNumber && (
           <p className={styles['error-message']}>
