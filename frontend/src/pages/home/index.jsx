@@ -111,8 +111,8 @@ function HomePage() {
                   users.map((user) => (
                     <div key={user.id} className={styles.userCard}>
                       <h3>
-                        {user.firstName}
-                        {user.lastName}
+                        {user.firstname}
+                        {user.lastname}
                       </h3>
                       <p>
                         Email:
@@ -120,7 +120,7 @@ function HomePage() {
                       </p>
                       <p>
                         Phone:
-                        {user.phoneNumber}
+                        {user.phonenumber}
                       </p>
                       <div>
                         <button

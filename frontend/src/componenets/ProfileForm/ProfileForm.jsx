@@ -23,30 +23,30 @@ function ProfileForm({ onSubmit, defaultValues }) {
       className={styles['form-container']}
     >
       <div>
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="firstname">First Name</label>
         <input
           type="text"
-          id="firstName"
-          name="firstName"
-          className={errors.firstName ? styles.error : ''}
-          {...register('firstName', { required: 'First name is required' })}
+          id="firstname"
+          name="firstname"
+          className={errors.firstname ? styles.error : ''}
+          {...register('firstname', { required: 'First name is required' })}
         />
-        {errors.firstName && (
-          <p className={styles['error-message']}>{errors.firstName.message}</p>
+        {errors.firstname && (
+          <p className={styles['error-message']}>{errors.firstname.message}</p>
         )}
       </div>
 
       <div>
-        <label htmlFor="lastName">Last Name</label>
+        <label htmlFor="lastname">Last Name</label>
         <input
           type="text"
-          id="lastName"
-          name="lastName"
-          className={errors.lastName ? styles.error : ''}
-          {...register('lastName', { required: 'Last name is required' })}
+          id="lastname"
+          name="lastname"
+          className={errors.lastname ? styles.error : ''}
+          {...register('lastname', { required: 'Last name is required' })}
         />
-        {errors.lastName && (
-          <p className={styles['error-message']}>{errors.lastName.message}</p>
+        {errors.lastname && (
+          <p className={styles['error-message']}>{errors.lastname.message}</p>
         )}
       </div>
 
@@ -99,13 +99,13 @@ function ProfileForm({ onSubmit, defaultValues }) {
       </div>
 
       <div>
-        <label htmlFor="phoneNumber">Phone Number</label>
+        <label htmlFor="phonenumber">Phone Number</label>
         <input
           type="tel"
-          id="phoneNumber"
-          name="phoneNumber"
-          className={errors.phoneNumber ? styles.error : ''}
-          {...register('phoneNumber', {
+          id="phonenumber"
+          name="phonenumber"
+          className={errors.phonenumber ? styles.error : ''}
+          {...register('phonenumber', {
             required: 'Phone number is required',
             pattern: {
               value: /^\+?[1-9]\d{1,14}$/,
@@ -114,9 +114,9 @@ function ProfileForm({ onSubmit, defaultValues }) {
             },
           })}
         />
-        {errors.phoneNumber && (
+        {errors.phonenumber && (
           <p className={styles['error-message']}>
-            {errors.phoneNumber.message}
+            {errors.phonenumber.message}
           </p>
         )}
       </div>
@@ -128,24 +128,24 @@ function ProfileForm({ onSubmit, defaultValues }) {
 
 ProfileForm.defaultProps = {
   defaultValues: {
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     country: '',
     city: '',
     email: '',
-    phoneNumber: '',
+    phonenumber: '',
   },
 };
 
 ProfileForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   defaultValues: PropTypes.shape({
-    firstName: PropTypes.string,
-    lastName: PropTypes.string,
+    firstname: PropTypes.string,
+    lastname: PropTypes.string,
     country: PropTypes.string,
     city: PropTypes.string,
     email: PropTypes.string,
-    phoneNumber: PropTypes.string,
+    phonenumber: PropTypes.string,
   }),
 };
 

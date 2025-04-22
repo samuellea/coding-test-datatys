@@ -14,7 +14,7 @@ const hashPassword = (email, password) =>
 const authenticateUser = async (email, password) => {
   const hash = hashPassword(email, password);
   const queryText = {
-    text: ` SELECT s.id, s.email, s.firstName as firstName, s.lastName as lastName
+    text: ` SELECT s.id, s.email, s.firstname as firstname, s.lastname as lastname
               FROM users s
               WHERE email = $1 AND password = $2`,
     values: [email, hash],
