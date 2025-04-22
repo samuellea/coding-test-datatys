@@ -48,13 +48,43 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const { email, password, firstname, lastname, country, city, phonenumber } =
-    req.body;
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    country,
+    city,
+    phoneNumber,
+    position,
+  } = req.body;
 
   try {
+    console.log('Updating user with ID:', id);
+    console.log('Received data:', {
+      email,
+      password,
+      firstName,
+      lastName,
+      country,
+      city,
+      phoneNumber,
+      position,
+    });
+
     const result = await db.query(
-      'UPDATE users SET email = $1, password = $2, firstname = $3, lastname = $4, country = $5, city = $6, phonenumber = $7, position = $8, updated_at = NOW() WHERE id = $9 RETURNING *',
-      [email, password, firstname, lastname, country, city, phonenumber, id]
+      'UPDATE users SET email = $1, password = $2, firstName = $3, lastName = $4, country = $5, city = $6, phoneNumber = $7, position = COALESCE($8, NULL), updated_at = NOW() WHERE id = $9 RETURNING *',
+      [
+        email,
+        password,
+        firstName,
+        lastName,
+        country,
+        city,
+        phoneNumber,
+        position,
+        id,
+      ]
     );
 
     if (result.rowCount === 0) {
