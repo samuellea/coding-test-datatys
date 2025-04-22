@@ -1,12 +1,20 @@
 import React from 'react';
-// import Profile from '../../componenets/Profile';
 import ProfileForm from '../../componenets/ProfileForm/ProfileForm';
+import { createUser } from '../../api';
 
 function ProfilePage() {
+  const onSubmit = async (userData) => {
+    try {
+      const user = await createUser(userData);
+      console.log('User created:', user);
+    } catch (error) {
+      console.error('Error creating user:', error);
+    }
+  };
+
   return (
     <div className="container">
-      {/* <Profile user={{ email: '' }} /> */}
-      <ProfileForm onSubmit={() => {}} />
+      <ProfileForm onSubmit={onSubmit} />
     </div>
   );
 }

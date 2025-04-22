@@ -1,4 +1,5 @@
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import styles from './ProfileForm.module.css';
