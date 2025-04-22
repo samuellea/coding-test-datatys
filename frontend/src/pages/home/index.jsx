@@ -63,6 +63,11 @@ function HomePage() {
     setShowForm(true); // Show the form to edit the user
   };
 
+  const handleCancel = () => {
+    setSelectedUser(null);
+    setShowForm(false);
+  };
+
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -96,7 +101,8 @@ function HomePage() {
         {showForm ? (
           <ProfileForm
             onSubmit={handleSubmit}
-            defaultValues={selectedUser || {}} // Pass selectedUser for editing or empty for new user (?!)
+            handleCancel={handleCancel}
+            defaultValues={selectedUser || {}}
           />
         ) : (
           <div>

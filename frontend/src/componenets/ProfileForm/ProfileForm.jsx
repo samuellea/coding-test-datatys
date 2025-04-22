@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
 import styles from './index.module.css';
 
-function ProfileForm({ onSubmit, defaultValues }) {
+function ProfileForm({ onSubmit, handleCancel, defaultValues }) {
   console.log(defaultValues);
   const {
     register,
@@ -120,8 +120,13 @@ function ProfileForm({ onSubmit, defaultValues }) {
           </p>
         )}
       </div>
+      <button type="button" onClick={handleCancel} className={styles.cancel}>
+        Cancel
+      </button>
 
-      <button type="submit">Submit</button>
+      <button type="submit" className={styles.submit}>
+        Submit
+      </button>
     </form>
   );
 }
@@ -135,6 +140,7 @@ ProfileForm.defaultProps = {
     email: '',
     phonenumber: '',
   },
+  handleCancel: () => {},
 };
 
 ProfileForm.propTypes = {
@@ -147,6 +153,7 @@ ProfileForm.propTypes = {
     email: PropTypes.string,
     phonenumber: PropTypes.string,
   }),
+  handleCancel: PropTypes.func,
 };
 
 export default ProfileForm;

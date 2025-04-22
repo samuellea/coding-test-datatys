@@ -44,7 +44,6 @@ label {
 
 button {
   padding: 12px;
-  background-color: #153376;
   color: white;
   font-size: 16px;
   font-weight: 600;
@@ -52,9 +51,26 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin-top: 16px;
+  margin-top: 0px;
 }
 
 button:hover {
   background-color: #4d4f5c;
+}
+
+.submit {
+  background-color: #153376;
+}
+
+.submit:hover {
+  background-color: #4d4f5c;
+}
+
+.cancel {
+  margin-top: 16px;
+  background-color: #959eb1;
+}
+
+.cancel:hover {
+  background-color: #9fa8b6;
 }
