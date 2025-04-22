@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400&display=swap');
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 8px;
+  margin-top: 4px;
+}
+
+input.error {
+  border: 1px solid red;
+}
+
+p.error-message {
+  color: red;
+  font-size: 12px;
+  margin: 4px 0 0;
+}
+
+label {
+  font-weight: bold;
+  color: #153376;
+  margin-bottom: 4px;
+}
+
+button {
+  padding: 12px;
+  background-color: #153376;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-top: 16px;
+}
+
+button:hover {
+  background-color: #4d4f5c;
+}

@@ -14,8 +14,11 @@ function Profile({ user }) {
 }
 
 Profile.propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
+  user: PropTypes.shape({
+    email: PropTypes.string,
+  }),
 };
+
 Profile.defaultProps = {
   user: { email: 'undefined@' },
 };
