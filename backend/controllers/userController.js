@@ -1,5 +1,17 @@
 const db = require('../sql/db');
 
+const fetchUsers = async (req, res) => {
+  try {
+    const result = await db.query(
+      'SELECT * FROM users ORDER BY created_at DESC'
+    );
+    res.status(200).json(result.rows);
+  } catch (error) {
+    console.error('Error fetching users:', error);
+    res.status(500).json({ error: 'Failed to fetch users' });
+  }
+};
+
 const createUser = async (req, res) => {
   const {
     email,
@@ -94,4 +106,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { createUser, updateUser, deleteUser };
+module.exports = { fetchUsers, createUser, updateUser, deleteUser };
