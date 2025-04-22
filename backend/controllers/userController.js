@@ -34,8 +34,64 @@ const createUser = async (req, res) => {
   }
 };
 
-const updateUser = async (req, res) => {};
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const {
+    email,
+    password,
+    first_name,
+    last_name,
+    country,
+    city,
+    phone_number,
+    position,
+  } = req.body;
 
-const deleteUser = async (req, res) => {};
+  try {
+    const result = await db.query(
+      'UPDATE users SET email = $1, password = $2, first_name = $3, last_name = $4, country = $5, city = $6, phone_number = $7, position = $8, updated_at = NOW() WHERE id = $9 RETURNING *',
+      [
+        email,
+        password,
+        first_name,
+        last_name,
+        country,
+        city,
+        phone_number,
+        position,
+        id,
+      ]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json(result.rows[0]);
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ error: 'Failed to update user' });
+  }
+};
+
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const result = await db.query(
+      'DELETE FROM users WHERE id = $1 RETURNING *',
+      [id]
+    );
+
+    if (result.rowCount === 0) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    res.status(200).json({ message: 'User deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting user:', error);
+    res.status(500).json({ error: 'Failed to delete user' });
+  }
+};
 
 module.exports = { createUser, updateUser, deleteUser };
