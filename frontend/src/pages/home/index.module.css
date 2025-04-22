@@ -1,0 +1,85 @@
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 20%;
+  background-color: #f0f0f0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.sidebar h3 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.button {
+  margin: 10px 0;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #0056b3;
+}
+
+.mainContent {
+  width: 80%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.userCards {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.userCard {
+  width: 200px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.userCard h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.userCard p {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.editButton,
+.deleteButton {
+  padding: 5px 10px;
+  margin-right: 10px;
+  border: none;
+  cursor: pointer;
+}
+
+.editButton {
+  background-color: #28a745;
+  color: white;
+}
+
+.deleteButton {
+  background-color: #dc3545;
+  color: white;
+}
+
+.editButton:hover {
+  background-color: #218838;
+}
+
+.deleteButton:hover {
+  background-color: #c82333;
+}

@@ -2,6 +2,8 @@ import axios from 'axios';
 
 const API_URL = process.env.REACT_APP_API_URL;
 
+export const getUsers = async () => [];
+
 export const createUser = async (userData) => {
   console.log(API_URL);
   console.log(userData);
