@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { createUser, getUsers, deleteUser } from '../../api';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { toast } from 'react-hot-toast';
 import ProfileForm from '../../componenets/ProfileForm/ProfileForm';
 import styles from './index.module.css';
+// eslint-disable-next-line object-curly-newline
+import { createUser, getUsers, deleteUser, updateUser } from '../../api';
 
 function HomePage() {
   const [showForm, setShowForm] = useState(false);
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); // For handling editingusers
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -22,26 +26,41 @@ function HomePage() {
 
   const handleSubmit = async (userData) => {
     try {
-      const user = await createUser(userData);
-      console.log('User created:', user);
+      if (selectedUser) {
+        // Update user if selectedUser exists
+        const updatedUser = await updateUser(selectedUser.id, userData);
+        toast.success('User updated successfully!');
+        setUsers(
+          // eslint-disable-next-line comma-dangle
+          users.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+        );
+      } else {
+        const user = await createUser(userData);
+        toast.success('User created successfully!');
+        setUsers([...users, user]);
+      }
       setShowForm(false);
-      fetchUsers();
+      setSelectedUser(null); // Reset selected user after form submission
     } catch (error) {
-      console.error('Error creating user:', error);
+      toast.error('Something went wrong!');
+      console.error(error);
     }
   };
 
   const handleDelete = async (userId) => {
     try {
       await deleteUser(userId);
-      fetchUsers();
+      fetchUsers(); // Re-fetch users after deletion
+      toast.success('User deleted successfully!');
     } catch (error) {
-      console.error('Error deleting user:', error);
+      toast.error('Error deleting user!');
+      console.error(error);
     }
   };
 
-  const handleEdit = async (userId) => {
-    console.log('Edit user with ID:', userId);
+  const handleEdit = (user) => {
+    setSelectedUser(user); // Set the user to be edited
+    setShowForm(true); // Show the form to edit the user
   };
 
   useEffect(() => {
@@ -51,10 +70,12 @@ function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.sidebar}>
-        <h3>Sidebar</h3>
         <button
           type="button"
-          onClick={() => setShowForm(true)}
+          onClick={() => {
+            setShowForm(true);
+            setSelectedUser(null); // Clear selected user for creating a new one
+          }}
           className={styles.button}
         >
           New User
@@ -73,7 +94,10 @@ function HomePage() {
 
       <div className={styles.mainContent}>
         {showForm ? (
-          <ProfileForm onSubmit={handleSubmit} />
+          <ProfileForm
+            onSubmit={handleSubmit}
+            defaultValues={selectedUser || {}} // Pass selectedUser for editing or empty for new user (?!)
+          />
         ) : (
           <div>
             <h2>Manage Users</h2>
@@ -87,8 +111,8 @@ function HomePage() {
                   users.map((user) => (
                     <div key={user.id} className={styles.userCard}>
                       <h3>
-                        {user.first_name}
-                        {user.last_name}
+                        {user.firstName}
+                        {user.lastName}
                       </h3>
                       <p>
                         Email:
@@ -96,12 +120,12 @@ function HomePage() {
                       </p>
                       <p>
                         Phone:
-                        {user.phone_number}
+                        {user.phoneNumber}
                       </p>
                       <div>
                         <button
                           type="button"
-                          onClick={() => handleEdit(user.id)}
+                          onClick={() => handleEdit(user)}
                           className={styles.editButton}
                         >
                           Edit

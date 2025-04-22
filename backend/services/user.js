@@ -8,12 +8,13 @@ const SECRET = process.env.SECRET || 'test-dev-secret';
  * @param {string} email
  * @param {string} password
  */
-const hashPassword = (email, password) => shajs('sha256').update(`${email}${password}${SECRET}`).digest('hex');
+const hashPassword = (email, password) =>
+  shajs('sha256').update(`${email}${password}${SECRET}`).digest('hex');
 
 const authenticateUser = async (email, password) => {
   const hash = hashPassword(email, password);
   const queryText = {
-    text: ` SELECT s.id, s.email, s.first_name as firstName, s.last_name as lastName
+    text: ` SELECT s.id, s.email, s.firstName as firstName, s.lastName as lastName
               FROM users s
               WHERE email = $1 AND password = $2`,
     values: [email, hash],
@@ -24,9 +25,9 @@ const authenticateUser = async (email, password) => {
       const user = rows[0];
       return user;
     }
-    throw (new Error('Bad credentials'));
+    throw new Error('Bad credentials');
   } catch (error) {
-    throw (new Error('Bad credentials'));
+    throw new Error('Bad credentials');
   }
 };
 

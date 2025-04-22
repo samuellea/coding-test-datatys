@@ -2,23 +2,24 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useForm } from 'react-hook-form';
 import PropTypes from 'prop-types';
-import styles from './ProfileForm.module.css';
+import styles from './index.module.css';
 
-function ProfileForm({ onSubmit }) {
+function ProfileForm({ onSubmit, defaultValues }) {
+  console.log(defaultValues);
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm({ defaultValues });
 
-  const handleFormSubmit = (data) => {
-    onSubmit(data, reset);
-  };
+  React.useEffect(() => {
+    reset(defaultValues);
+  }, [defaultValues, reset]);
 
   return (
     <form
-      onSubmit={handleSubmit(handleFormSubmit)}
+      onSubmit={handleSubmit(onSubmit)}
       className={styles['form-container']}
     >
       <div>
@@ -125,8 +126,27 @@ function ProfileForm({ onSubmit }) {
   );
 }
 
+ProfileForm.defaultProps = {
+  defaultValues: {
+    firstName: '',
+    lastName: '',
+    country: '',
+    city: '',
+    email: '',
+    phoneNumber: '',
+  },
+};
+
 ProfileForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  defaultValues: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    country: PropTypes.string,
+    city: PropTypes.string,
+    email: PropTypes.string,
+    phoneNumber: PropTypes.string,
+  }),
 };
 
 export default ProfileForm;

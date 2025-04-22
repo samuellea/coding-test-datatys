@@ -16,25 +16,25 @@ const createUser = async (req, res) => {
   const {
     email,
     password,
-    first_name,
-    last_name,
+    firstName,
+    lastName,
     country,
     city,
-    phone_number,
+    phoneNumber,
     position,
   } = req.body;
 
   try {
     const result = await db.query(
-      'INSERT INTO users (email, password, first_name, last_name, country, city, phone_number, position) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      'INSERT INTO users (email, password, firstName, lastName, country, city, phoneNumber, position) VALUES ($1, $2, $3, $4, $5, $6, $7, COALESCE($8, NULL)) RETURNING *',
       [
         email,
         password,
-        first_name,
-        last_name,
+        firstName,
+        lastName,
         country,
         city,
-        phone_number,
+        phoneNumber,
         position,
       ]
     );
@@ -48,31 +48,13 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   const { id } = req.params;
-  const {
-    email,
-    password,
-    first_name,
-    last_name,
-    country,
-    city,
-    phone_number,
-    position,
-  } = req.body;
+  const { email, password, firstName, lastName, country, city, phoneNumber } =
+    req.body;
 
   try {
     const result = await db.query(
-      'UPDATE users SET email = $1, password = $2, first_name = $3, last_name = $4, country = $5, city = $6, phone_number = $7, position = $8, updated_at = NOW() WHERE id = $9 RETURNING *',
-      [
-        email,
-        password,
-        first_name,
-        last_name,
-        country,
-        city,
-        phone_number,
-        position,
-        id,
-      ]
+      'UPDATE users SET email = $1, password = $2, firstName = $3, lastName = $4, country = $5, city = $6, phoneNumber = $7, position = $8, updated_at = NOW() WHERE id = $9 RETURNING *',
+      [email, password, firstName, lastName, country, city, phoneNumber, id]
     );
 
     if (result.rowCount === 0) {
